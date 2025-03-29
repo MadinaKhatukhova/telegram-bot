@@ -6,21 +6,26 @@ import com.pengrad.telegrambot.model.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.concurrent.Executor;
+
 
 @Service
 public class TelegramBotUpdatesListener implements UpdatesListener {
 
-    private Logger logger = LoggerFactory.getLogger(TelegramBotUpdatesListener.class);
+    private final Logger logger = LoggerFactory.getLogger(TelegramBotUpdatesListener.class);
 
     @Autowired
     private TelegramBot telegramBot;
 
+
     @PostConstruct
     public void init() {
+
         telegramBot.setUpdatesListener(this);
     }
 
@@ -29,8 +34,14 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
         updates.forEach(update -> {
             logger.info("Processing update: {}", update);
             // Process your updates here
+
+
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
+
+
     }
 
+
 }
+
